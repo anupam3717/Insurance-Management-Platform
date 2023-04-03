@@ -1,5 +1,4 @@
 package com.example.InsuranceManagementPlatform.Entity;
-
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -8,25 +7,28 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Entity
-@Table(name = "clients")
-public class Client {
+
+@Table(name = "claims")
+public class Claim {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private String name;
+    private String claimNumber;
 
     @Column(nullable = false)
-    private LocalDate dateOfBirth;
+    private String description;
 
     @Column(nullable = false)
-    private String address;
+    private LocalDate claimDate;
 
     @Column(nullable = false)
-    private String contactInformation;
+    private String claimStatus;
 
-
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "insurance_policy_id", nullable = false)
+    private InsurancePolicy insurancePolicy;
 }
 
