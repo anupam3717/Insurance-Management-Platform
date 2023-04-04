@@ -1,7 +1,6 @@
-package com.example.InsuranceManagementPlatform.Service;
+package com.example.InsuranceManagementPlatform.service;
 
-import com.example.InsuranceManagementPlatform.Entity.Client;
-import com.example.InsuranceManagementPlatform.Entity.InsurancePolicy;
+import com.example.InsuranceManagementPlatform.entity.InsurancePolicy;
 
 import java.util.List;
 

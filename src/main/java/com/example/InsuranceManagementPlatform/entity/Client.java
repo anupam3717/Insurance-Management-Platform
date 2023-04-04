@@ -1,4 +1,4 @@
-package com.example.InsuranceManagementPlatform.Entity;
+package com.example.InsuranceManagementPlatform.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -15,7 +15,6 @@ import java.util.List;
 public class Client {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)

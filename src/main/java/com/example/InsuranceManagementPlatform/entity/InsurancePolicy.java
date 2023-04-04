@@ -1,4 +1,4 @@
-package com.example.InsuranceManagementPlatform.Entity;
+package com.example.InsuranceManagementPlatform.entity;
 
 
 import jakarta.persistence.*;
@@ -13,7 +13,6 @@ import java.time.LocalDate;
 public class InsurancePolicy {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)

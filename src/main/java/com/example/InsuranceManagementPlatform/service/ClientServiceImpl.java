@@ -1,23 +1,33 @@
-package com.example.InsuranceManagementPlatform.Service;
+package com.example.InsuranceManagementPlatform.service;
 
-import com.example.InsuranceManagementPlatform.Entity.Client;
-import com.example.InsuranceManagementPlatform.Repository.ClientRepo;
+import com.example.InsuranceManagementPlatform.entity.Client;
+import com.example.InsuranceManagementPlatform.repository.ClientRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ClientServiceImpl implements ClientServiceInterface{
     @Autowired
    private ClientRepo clientRepo;
+
     @Override
     public List<Client> getAllClients() {
-        return null;
+        Iterable<Client> iterable = clientRepo.findAll();
+        List<Client> result = new ArrayList<>();
+        for (Client str : iterable) {
+            result.add(str);
+        }
+        return result;
     }
 
     @Override
-    public Client getClientById(Long i) {
-        return null;
+    public Optional<Client> getClientById(Long id) {
+
+        return clientRepo.findById(id);
     }
 
     @Override
@@ -28,11 +38,13 @@ public class ClientServiceImpl implements ClientServiceInterface{
 
     @Override
     public boolean updateClient(Client c) {
+        clientRepo.save(c);
         return false;
     }
 
     @Override
-    public boolean deleteClient(Client c) {
+    public boolean deleteClient(Long id) {
+        clientRepo.deleteById(id);
         return false;
     }
 }

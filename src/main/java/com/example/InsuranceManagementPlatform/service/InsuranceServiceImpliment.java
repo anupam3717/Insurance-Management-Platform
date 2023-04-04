@@ -1,7 +1,7 @@
-package com.example.InsuranceManagementPlatform.Service;
+package com.example.InsuranceManagementPlatform.service;
 
-import com.example.InsuranceManagementPlatform.Entity.InsurancePolicy;
-import com.example.InsuranceManagementPlatform.Repository.InsuranceRepo;
+import com.example.InsuranceManagementPlatform.entity.InsurancePolicy;
+import com.example.InsuranceManagementPlatform.repository.InsuranceRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
