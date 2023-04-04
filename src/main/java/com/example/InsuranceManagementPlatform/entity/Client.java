@@ -5,6 +5,9 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -26,7 +29,8 @@ public class Client {
 
     @Column(nullable = false)
     private String contactInformation;
-
+    @OneToMany(mappedBy = "client")
+    private List<InsurancePolicy> policies=new ArrayList<>();
 
 }
 
