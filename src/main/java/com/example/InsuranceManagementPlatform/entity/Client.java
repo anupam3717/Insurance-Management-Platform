@@ -1,5 +1,6 @@
 package com.example.InsuranceManagementPlatform.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,6 +30,7 @@ public class Client {
     @Column(nullable = false)
     private String contactInformation;
     @OneToMany(mappedBy = "client")
+    @JsonManagedReference
     private List<InsurancePolicy> policies=new ArrayList<>();
 
 }

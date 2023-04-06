@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class InsuranceServiceImpliment implements InsuranceServiceInterface {
+public class InsuranceServiceImpl implements InsuranceServiceInterface {
     @Autowired
     private InsuranceRepo policy;
     @Autowired

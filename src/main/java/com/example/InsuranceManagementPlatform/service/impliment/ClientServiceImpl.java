@@ -1,7 +1,8 @@
-package com.example.InsuranceManagementPlatform.service;
+package com.example.InsuranceManagementPlatform.service.impliment;
 
 import com.example.InsuranceManagementPlatform.entity.Client;
 import com.example.InsuranceManagementPlatform.repository.ClientRepo;
+import com.example.InsuranceManagementPlatform.service.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +11,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ClientServiceImpl implements ClientServiceInterface{
+public class ClientServiceImpl implements ClientServiceInterface {
     @Autowired
    private ClientRepo clientRepo;
 

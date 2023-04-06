@@ -1,4 +1,5 @@
 package com.example.InsuranceManagementPlatform.entity;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,8 +27,9 @@ public class Claim {
     @Column(nullable = false)
     private String claimStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "insurance_policy_id", nullable = false)
+    @JsonBackReference
     private InsurancePolicy insurancePolicy;
 }
 

@@ -4,11 +4,12 @@ import com.example.InsuranceManagementPlatform.entity.Claim;
 import com.example.InsuranceManagementPlatform.entity.Client;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ClaimServiceInterface {
-    List<Client> getAllClaims();
-    Client getClaimById(Long i);
+    List<Claim> getAllClaims();
+    Optional<Claim> getClaimById(Long id);
     boolean newClaim(Claim c);
     boolean updateClaim(Claim c);
-    boolean deleteClaim(Claim c);
+    boolean deleteClaim(Long id);
 }

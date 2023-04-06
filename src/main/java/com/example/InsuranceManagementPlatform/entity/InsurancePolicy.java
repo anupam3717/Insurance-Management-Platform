@@ -1,11 +1,15 @@
 package com.example.InsuranceManagementPlatform.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.List;
+
 @Getter
 @Setter
 @Entity
@@ -35,5 +39,10 @@ public class InsurancePolicy {
 
     @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinColumn(name = "client_id", nullable = false)
+    @JsonBackReference
     private Client client;
+
+    @OneToMany(mappedBy = "insurancePolicy")
+    @JsonManagedReference
+    private List<Claim> claim;
 }
