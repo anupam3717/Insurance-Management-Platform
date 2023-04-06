@@ -19,6 +19,7 @@ public class ClientServiceImpl implements ClientServiceInterface{
         Iterable<Client> iterable = clientRepo.findAll();
         List<Client> result = new ArrayList<>();
         for (Client str : iterable) {
+
             result.add(str);
         }
         return result;
