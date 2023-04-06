@@ -1,6 +1,7 @@
 package com.example.InsuranceManagementPlatform.service.impliment;
 
 import com.example.InsuranceManagementPlatform.entity.Client;
+import com.example.InsuranceManagementPlatform.exceptions.StatusCodeMyException;
 import com.example.InsuranceManagementPlatform.repository.ClientRepo;
 import com.example.InsuranceManagementPlatform.service.ClientServiceInterface;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.INTERNAL_SERVER_ERROR;
+import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.MANDATORY_PARAMETER_MISSING;
+
 @Service
 public class ClientServiceImpl implements ClientServiceInterface {
     @Autowired
@@ -18,6 +22,9 @@ public class ClientServiceImpl implements ClientServiceInterface {
     @Override
     public List<Client> getAllClients() {
         Iterable<Client> iterable = clientRepo.findAll();
+        if(iterable==null){
+            throw  new StatusCodeMyException(INTERNAL_SERVER_ERROR,500,"Something wront in server,try after sometime");
+        }
         List<Client> result = new ArrayList<>();
         for (Client str : iterable) {
 
@@ -27,26 +34,41 @@ public class ClientServiceImpl implements ClientServiceInterface {
     }
 
     @Override
-    public Optional<Client> getClientById(Long id) {
+    public Client getClientById(Long id) {
 
-        return clientRepo.findById(id);
+        Optional<Client> x=clientRepo.findById(id);
+        if(x.isEmpty()){
+            throw  new StatusCodeMyException(MANDATORY_PARAMETER_MISSING,404,"please enter valid ID");
+        }
+        return x.get();
     }
 
     @Override
     public boolean newClient(Client c) {
         Client x = clientRepo.save(c);
-        return false;
+        if(x==null){
+            throw  new StatusCodeMyException(MANDATORY_PARAMETER_MISSING,404,"please enter valid details");
+        }
+        return true;
     }
 
     @Override
     public boolean updateClient(Client c) {
+        Optional<Client> x=clientRepo.findById(c.getId());
+        if(x.isEmpty()){
+            throw  new StatusCodeMyException(MANDATORY_PARAMETER_MISSING,404,"please enter valid ID");
+        }
         clientRepo.save(c);
-        return false;
+        return true;
     }
 
     @Override
     public boolean deleteClient(Long id) {
+        Optional<Client> x=clientRepo.findById(id);
+        if(x.isEmpty()){
+            throw  new StatusCodeMyException(MANDATORY_PARAMETER_MISSING,404,"please enter valid ID");
+        }
         clientRepo.deleteById(id);
-        return false;
+        return true;
     }
 }

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 @RestController
 @RequestMapping("/api/client")
 public class ClientController {
@@ -13,12 +14,13 @@ public class ClientController {
     private ClientServiceImpl clientService;
     @GetMapping("/all")
     public ResponseEntity<?> getAll(){
-        return ResponseEntity.ok().body(clientService.getAllClients());
+        List<Client> list=clientService.getAllClients();
+        return ResponseEntity.ok().body(list);
     }
 
     @PostMapping("/create")
     public ResponseEntity<?> create(@RequestBody Client client){
-        clientService.newClient(client);
+        boolean x = clientService.newClient(client);
         return ResponseEntity.ok().body("created successfully");
     }
     @GetMapping("/get/{id}")
@@ -35,6 +37,7 @@ public class ClientController {
     @GetMapping("/delete/{id}")
     public ResponseEntity<?> deleteById(@PathVariable("id") Long clientId){
         clientService.deleteClient(clientId);
+
         return ResponseEntity.ok().body("Deleted Successfully");
     }
 }

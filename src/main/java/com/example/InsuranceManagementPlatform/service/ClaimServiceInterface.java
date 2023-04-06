@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface ClaimServiceInterface {
     List<Claim> getAllClaims();
-    Optional<Claim> getClaimById(Long id);
+    Claim getClaimById(Long id);
     boolean newClaim(Claim c);
     boolean updateClaim(Claim c);
     boolean deleteClaim(Long id);
