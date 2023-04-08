@@ -13,22 +13,6 @@ import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.INTE
 public class GlobalControllerErrorHandler {
     @Autowired
     private AppProperties properties;
-    @ExceptionHandler(Throwable.class)
-    public ResponseEntity<?> handleThrowable(Throwable th) {
-        ApiError apiError = ApiError.builder()
-                .code(INTERNAL_SERVER_ERROR)
-                .message(properties.getGenericErrorMessage())
-                .serviceName(properties.getServiceName())
-                .serviceVersion(properties.getServiceVersion())
-                .build();
-
-        return ResponseEntity.status(500).body(apiError);
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<?> handleException(Exception ex) {
-        return handleThrowable(ex);
-    }
 
     @ExceptionHandler(StatusCodeMyException.class)
     public ResponseEntity<?> handleStatusCodeMyException(StatusCodeMyException ex){
