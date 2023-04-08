@@ -14,4 +14,5 @@ public class AppProperties {
     private String serviceVersion;
 
     private String genericErrorMessage;
+    private String secretKey;
 }
