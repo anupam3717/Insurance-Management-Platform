@@ -1,5 +1,6 @@
 package com.example.InsuranceManagementPlatform.config;
 
+import com.example.InsuranceManagementPlatform.exceptions.AccesControlErrorHandler;
 import com.example.InsuranceManagementPlatform.security.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,11 +14,14 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+    @Autowired
+    private AccesControlErrorHandler accessDenied;
     @Autowired
     private JwtFilter jwtFilter;
     @Autowired
@@ -44,7 +48,11 @@ public class SecurityConfig {
         http.authenticationProvider(loginProvider()).addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests()
                 .requestMatchers("/api/signup","/api/login").permitAll()
+                .requestMatchers("/api/hi").hasRole("admin")
                 .anyRequest().authenticated();
+
+        http.exceptionHandling()
+                .accessDeniedHandler(accessDenied);
         return http.build();
     }
 }

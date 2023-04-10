@@ -10,8 +10,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.AUTHENTICATION_UNVALID_DATA;
-import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.INTERNAL_SERVER_ERROR;
+import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.*;
 
 @ControllerAdvice
 public class GlobalControllerErrorHandler {
@@ -32,7 +31,7 @@ public class GlobalControllerErrorHandler {
     @ExceptionHandler(StatusCodeMyException.class)
     public ResponseEntity<?> handleStatusCodeMyException(HttpServletRequest request, StatusCodeMyException ex) {
         ApiError apiError = ApiError.builder()
-                .code(AUTHENTICATION_UNVALID_DATA)
+                .code(AUTHENTICATION_INVALID_DATA)
                 .message("userName and password error")
                 .serviceName(properties.getServiceName())
                 .serviceVersion(properties.getServiceVersion())

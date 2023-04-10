@@ -12,7 +12,6 @@ import org.springframework.stereotype.Component;
 import java.security.Key;
 import java.util.Date;
 
-import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.AUTHENTICATION_UNVALID_DATA;
 
 @Component
 public class JwtProvider {

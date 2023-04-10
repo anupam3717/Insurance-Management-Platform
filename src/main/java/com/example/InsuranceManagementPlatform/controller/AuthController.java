@@ -42,6 +42,10 @@ public class AuthController {
            return  ResponseEntity.ok().body(response);
     }
 
+    @GetMapping("hi")
+    public String test(){
+        return "hi";
+    }
     @PostMapping("signup/{userName}")
     public Optional<OfficialUser> find(@PathVariable("userName") String userName){
        return userService.getUserByUsername(userName);
