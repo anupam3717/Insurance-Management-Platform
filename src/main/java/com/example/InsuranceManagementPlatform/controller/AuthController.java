@@ -18,6 +18,7 @@ public class AuthController {
     private OfficialUserServiceImpl userService;
     @PostMapping("signuppp")
     public String addUser(@RequestBody OfficialUser user){
+
         userService.addUser(user);
         return "added";
     }
