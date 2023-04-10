@@ -13,8 +13,12 @@ public class OfficialUser {
     @Id
    // @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(unique = true)
+
+    @Column(unique = true,nullable = false)
     private String userName;
+
+
+    @Column(nullable = false)
     private String password;
     @ManyToMany(fetch = FetchType.EAGER ,cascade = CascadeType.ALL)
     @JoinTable(name = "USER_ROLES", joinColumns = {

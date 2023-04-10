@@ -20,13 +20,13 @@ public class UserInfoUserDetailsService implements UserDetailsService {
     private OfficialUserServiceImpl userService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Optional<OfficialUser> x = userService.getUserByUsername(username);
-        if(x.isEmpty())throw new UsernameNotFoundException("Please enter vaild user");
+        OfficialUser x = userService.getUserByUsername(username);
+       // if(x.isEmpty())throw new UsernameNotFoundException("Please enter vaild user");
         ArrayList<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-        for(Role role:x.get().getRoles()){
+        for(Role role:x.getRoles()){
            // System.out.println(role.getRole());
             authorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
-        return new User(x.get().getUserName(),x.get().getPassword(),authorities);
+        return new User(x.getUserName(),x.getPassword(),authorities);
     }
 }

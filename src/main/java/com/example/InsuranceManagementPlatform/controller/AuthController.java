@@ -28,7 +28,6 @@ public class AuthController {
     private OfficialUserServiceImpl userService;
     @PostMapping("signup")
     public String signup(@RequestBody OfficialUser user){
-
        userService.addUser(user);
         return "added";
     }
@@ -42,12 +41,5 @@ public class AuthController {
            return  ResponseEntity.ok().body(response);
     }
 
-    @GetMapping("hi")
-    public String test(){
-        return "hi";
-    }
-    @PostMapping("signup/{userName}")
-    public Optional<OfficialUser> find(@PathVariable("userName") String userName){
-       return userService.getUserByUsername(userName);
-    }
+
 }

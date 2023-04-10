@@ -26,6 +26,7 @@ public class SecurityConfig {
     private JwtFilter jwtFilter;
     @Autowired
     private UserInfoUserDetailsService userInfoUserDetailsService;
+    String[] unsecuredPaths = {"/api/signup", "/api/login", "/api/client/create","/api/client/get/{id}","/api/insurance/create","/api/claim/create"};
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -47,7 +48,7 @@ public class SecurityConfig {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
         http.authenticationProvider(loginProvider()).addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests()
-                .requestMatchers("/api/signup","/api/login").permitAll()
+                .requestMatchers(unsecuredPaths).permitAll()
                 .requestMatchers("/api/hi").hasRole("admin")
                 .anyRequest().authenticated();
 
