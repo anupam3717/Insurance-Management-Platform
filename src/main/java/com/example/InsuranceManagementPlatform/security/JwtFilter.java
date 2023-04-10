@@ -17,10 +17,14 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import java.io.IOException;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
+    private final JwtProvider jwtProvider;
+    private final UserInfoUserDetailsService userInfo;
+
     @Autowired
-    private JwtProvider jwtProvider;
-    @Autowired
-    private UserInfoUserDetailsService userInfo;
+    public JwtFilter(JwtProvider jwtProvider, UserInfoUserDetailsService userInfo) {
+        this.jwtProvider = jwtProvider;
+        this.userInfo = userInfo;
+    }
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String token=getTokenFromHeader(request);

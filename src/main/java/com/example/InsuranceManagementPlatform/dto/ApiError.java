@@ -1,4 +1,4 @@
-package com.example.InsuranceManagementPlatform.apiErrorDto;
+package com.example.InsuranceManagementPlatform.dto;
 
 import lombok.Builder;
 import lombok.Getter;

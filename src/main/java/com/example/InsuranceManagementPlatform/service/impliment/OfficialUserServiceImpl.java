@@ -5,6 +5,7 @@ import com.example.InsuranceManagementPlatform.repository.RoleRepo;
 import com.example.InsuranceManagementPlatform.repository.UserRepo;
 import com.example.InsuranceManagementPlatform.service.OfficialUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
@@ -15,8 +16,9 @@ public class OfficialUserServiceImpl implements OfficialUserService {
     private RoleRepo roleRepo;
     @Autowired
     private UserRepo userRepo;
-    @Autowired
-    private PasswordEncoder encoder;
+   @Autowired
+   @Lazy
+   private PasswordEncoder encoder;
     @Override
     public Optional<OfficialUser> getUserByUsername(String userName) {
 
