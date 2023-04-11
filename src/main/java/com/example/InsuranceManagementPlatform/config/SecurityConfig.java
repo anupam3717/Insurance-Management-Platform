@@ -1,6 +1,7 @@
 package com.example.InsuranceManagementPlatform.config;
 
 import com.example.InsuranceManagementPlatform.exceptions.AccesControlErrorHandler;
+import com.example.InsuranceManagementPlatform.exceptions.AuthErrorHandeler;
 import com.example.InsuranceManagementPlatform.security.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -22,6 +24,8 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     @Autowired
     private AccesControlErrorHandler accessDenied;
+    @Autowired
+    private AuthErrorHandeler authenticationEntryPoint;
     @Autowired
     private JwtFilter jwtFilter;
     @Autowired
@@ -55,7 +59,9 @@ public class SecurityConfig {
                 .requestMatchers(editorPaths).hasAnyRole("editor","admin")
                 .anyRequest().authenticated();
 
+
         http.exceptionHandling()
+                .authenticationEntryPoint(authenticationEntryPoint)
                 .accessDeniedHandler(accessDenied);
         return http.build();
     }

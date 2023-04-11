@@ -7,26 +7,25 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.AccessDeniedException;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 @Component
-public class AccesControlErrorHandler implements AccessDeniedHandler {
+public class AuthErrorHandeler implements AuthenticationEntryPoint {
     private ObjectMapper objectMapper;
-    private  AppProperties properties;
+    private AppProperties properties;
     @Autowired
-    public AccesControlErrorHandler(ObjectMapper objectMapper, AppProperties properties) {
+    public AuthErrorHandeler(ObjectMapper objectMapper, AppProperties properties) {
         this.objectMapper = objectMapper;
         this.properties = properties;
     }
-
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
         ApiError apiError = ApiError.builder()
-                .code(ErrorCodes.AUTHORIZATION_INVALID)
-                .message("Not have sufficient permissions to access the requested resource")
+                .code(ErrorCodes.AUTHENTICATION_INVALID_DATA)
+                .message("Authentication is required")
                 .serviceName(properties.getServiceName())
                 .serviceVersion(properties.getServiceVersion())
                 .build();
@@ -35,10 +34,7 @@ public class AccesControlErrorHandler implements AccessDeniedHandler {
 
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.getWriter().write(responseBody);
     }
-
 }
-
-
