@@ -11,8 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.INTERNAL_SERVER_ERROR;
-import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.MANDATORY_PARAMETER_MISSING;
+import static com.example.InsuranceManagementPlatform.exceptions.ErrorCodes.*;
 
 @Service
 public class ClientServiceImpl implements ClientServiceInterface {
@@ -66,7 +65,7 @@ public class ClientServiceImpl implements ClientServiceInterface {
     public boolean deleteClient(Long id) {
         Optional<Client> x=clientRepo.findById(id);
         if(x.isEmpty()){
-            throw  new StatusCodeMyException(MANDATORY_PARAMETER_MISSING,404,"please enter valid ID");
+            throw  new StatusCodeMyException(INVALID_ID,404,"please enter valid ID");
         }
         clientRepo.deleteById(id);
         return true;

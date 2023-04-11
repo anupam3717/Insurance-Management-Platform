@@ -29,7 +29,7 @@ public class Client {
 
     @Column(nullable = false)
     private String contactInformation;
-    @OneToMany(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "client",fetch = FetchType.LAZY,cascade = CascadeType.ALL,orphanRemoval = true)
     @JsonManagedReference
     private List<InsurancePolicy> policies=new ArrayList<>();
 

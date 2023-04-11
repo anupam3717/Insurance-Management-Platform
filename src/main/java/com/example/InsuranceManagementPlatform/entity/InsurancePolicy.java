@@ -37,12 +37,12 @@ public class InsurancePolicy {
     @Column(nullable = false)
     private LocalDate endDate;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "client_id", nullable = false)
     @JsonBackReference
     private Client client;
 
-    @OneToMany(mappedBy = "insurancePolicy")
+    @OneToMany(mappedBy = "insurancePolicy",orphanRemoval = true,cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Claim> claim;
 }

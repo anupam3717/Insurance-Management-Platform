@@ -27,7 +27,7 @@ public class Claim {
     @Column(nullable = false)
     private String claimStatus;
 
-    @ManyToOne(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "insurance_policy_id", nullable = false)
     @JsonBackReference
     private InsurancePolicy insurancePolicy;

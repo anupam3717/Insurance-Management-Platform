@@ -26,7 +26,9 @@ public class SecurityConfig {
     private JwtFilter jwtFilter;
     @Autowired
     private UserInfoUserDetailsService userInfoUserDetailsService;
-    String[] unsecuredPaths = {"/api/signup", "/api/login", "/api/client/create","/api/client/get/{id}","/api/insurance/create","/api/claim/create"};
+    String[] unsecuredPaths = {"/api/signup", "/api/login"};
+    String[] adminPaths={"/api/client/delete","/api/claim/delete","/api/insurance/delete"};
+    String[] editorPaths={"/api/client/update","/api/claim/update","/api/insurance/update"};
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -49,7 +51,8 @@ public class SecurityConfig {
         http.authenticationProvider(loginProvider()).addFilterBefore(jwtFilter,UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests()
                 .requestMatchers(unsecuredPaths).permitAll()
-                .requestMatchers("/api/hi").hasRole("admin")
+                .requestMatchers(adminPaths).hasRole("admin")
+                .requestMatchers(editorPaths).hasAnyRole("editor","admin")
                 .anyRequest().authenticated();
 
         http.exceptionHandling()

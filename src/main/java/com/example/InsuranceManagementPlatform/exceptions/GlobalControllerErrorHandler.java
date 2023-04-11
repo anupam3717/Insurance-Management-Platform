@@ -31,8 +31,8 @@ public class GlobalControllerErrorHandler {
     @ExceptionHandler(StatusCodeMyException.class)
     public ResponseEntity<?> handleStatusCodeMyException(HttpServletRequest request, StatusCodeMyException ex) {
         ApiError apiError = ApiError.builder()
-                .code(AUTHENTICATION_INVALID_DATA)
-                .message("userName and password error")
+                .code(ex.getCode())
+                .message(ex.getMessage())
                 .serviceName(properties.getServiceName())
                 .serviceVersion(properties.getServiceVersion())
                 .build();
